@@ -25,7 +25,7 @@
 
 <p>也没有用。</p>
 <p>最后折腾了半天之后，终于在一个博客上看到可能是node.js的版本问题，这样又来到了第二个大坑。</p>
-<h2 id="nvm和node-js安装"><a href="#nvm和node-js安装" class="headerlink" title="nvm和node.js安装"></a>nvm和node.js安装</h2><p>由于使用的macOS，之前安装node.js是直接用brew安装的，默认安装的是最新版node。在某博客中看到最好不要使用brew安装node.js，而是采用nvm安装，使用nvm可以进行node.js的版本管理，可以随时切换node版本。nvm及node安装教程可以看<a href="https://www.jianshu.com/p/c1b6c452a98a" target="_blank" rel="noopener">这篇</a>，mac下更详细的教程可以看<a href="https://segmentfault.com/a/1190000017391932" target="_blank" rel="noopener">这里</a>和<a href="https://www.jianshu.com/p/622ad36ee020" target="_blank" rel="noopener">这里</a>，以及别人<a href="https://blog.csdn.net/zjuwwj/article/details/72805671" target="_blank" rel="noopener">踩过的坑</a>。</p>
+<h2 id="nvm和node-js安装"><a href="#nvm和node-js安装" class="headerlink" title="nvm和node.js安装"></a>nvm和node.js安装</h2><p>由于使用的macOS，之前安装node.js是直接用brew安装的，默认安装的是最新版node。在某博客中看到最好不要使用brew安装node.js，而是采用nvm安装，使用nvm可以进行node.js的版本管理，可以随时切换node版本。nvm及node安装教程可以看<a href="https://www.jianshu.com/p/c1b6c452a98a" target="_blank" rel="noopener">这篇</a>，mac下更详细的教程可以看<a href="https://segmentfault.com/a/1190000017391932" target="_blank" rel="noopener">这里</a>和<a href="https://www.jianshu.com/p/622ad36ee020" target="_blank" rel="noopener">这里</a>，以及别人<a href="https://blog.csdn.net/zjuwwj/article/details/72805671" target="_blank" rel="noopener">踩过的坑</a>。还有一篇<a href="http://linyehui.me/2016/03/03/reinstall-nodejs-on-osx/" target="_blank" rel="noopener">Mac OSX下重装node.js</a>供参考。</p>
 <p>我安装nvm也碰到了路径问题，就是明明已经安装了nvm，但是用的时候却显示<code>command not found</code>。参考前面的几个博客，以及一顿google又折腾了半天安装好了nvm，然后安装了<strong>官方推荐稳定版本</strong>v12.6.0，然后再安装hexo，部署GitHub，问题完美解决。</p>
 <p>总结一下，血的教训就是安装软件或者包啥的一定要安装<strong>官方稳定版</strong>！</p>
 ]]></content>
