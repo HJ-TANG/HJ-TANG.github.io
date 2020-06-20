@@ -40,7 +40,7 @@
     <title>Hexo简单使用教程</title>
     <url>/2020/06/21/Hexo%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<p>上一篇文章里用GitHub和Hexo搭建了一个粗糙的个人博客，这篇文章讲一下基本的使用和美化。如新建、删除博文，更换主题，添加标签分类等等。</p>
-<h1 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h1><p>在blog文件夹下新建终端窗口，输入</p>
+<h1 id="新建、删除文章"><a href="#新建、删除文章" class="headerlink" title="新建、删除文章"></a>新建、删除文章</h1><h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><p>在blog文件夹下新建终端窗口，输入</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new 文章标题</span><br></pre></td></tr></table></figure>
 
 <p>一篇空白的文章就新建好啦。文件是.md格式的，写文章的话需要学习一点markdown语法。</p>
@@ -48,12 +48,20 @@
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">title: 测试页面</span><br><span class="line">date: 2020-06-20 19:03:08</span><br><span class="line">tags:</span><br><span class="line"><span class="bullet">- </span>其他</span><br></pre></td></tr></table></figure>
 
 <p><code>title</code>是最终显示出来的文章标题，<code>date</code>是文章的创建时间，<code>tags</code>是文章的标签，在后面会详细说明。</p>
-<p>编辑好文章，本地查看用<code>hexo g</code>，如果没什么问题<code>hexo d</code>就可以部署到GitHub啦。</p>
+<p>编辑好文章，想要本地预览可以依次执行<code>hexo g</code>和<code>hexo s</code>，如果没什么问题<code>hexo d</code>就可以部署到GitHub啦。</p>
+<h2 id="删除文章"><a href="#删除文章" class="headerlink" title="删除文章"></a>删除文章</h2><p>首先进入到source / _post 文件夹中，找到要删除的文章对应的文件如helloworld.md文件，在本地直接执行删除。然后在blog文件夹中重新执行<code>hexo g</code>就好啦，然后<code>hexo d</code>部署到GitHub。</p>
 <a id="more"></a>
 
 
 
-<h1 id="删除文章"><a href="#删除文章" class="headerlink" title="删除文章"></a>删除文章</h1><p>首先进入到source / _post 文件夹中，找到要删除的文章对应的文件如helloworld.md文件，在本地直接执行删除。然后在blog文件夹中重新执行<code>hexo g</code>就好啦，然后<code>hexo d</code>部署到GitHub。</p>
+<h1 id="新建、发布草稿"><a href="#新建、发布草稿" class="headerlink" title="新建、发布草稿"></a>新建、发布草稿</h1><h2 id="新建草稿"><a href="#新建草稿" class="headerlink" title="新建草稿"></a>新建草稿</h2><p>跟新建文章类似，不过多个<code>draft</code>关键字</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new draft 标题</span><br></pre></td></tr></table></figure>
+
+<p>生成的文件会在<code>source/_draft</code>下。本地查看的时候草稿是不会显示的，可以执行<code>hexo server --draft</code>来强行在本地预览草稿。</p>
+<h2 id="发布草稿"><a href="#发布草稿" class="headerlink" title="发布草稿"></a>发布草稿</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo publish post 标题</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>默认的主题不喜欢，可以在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">Themes</a>上找一个自己喜欢的主题。我使用的是<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>，浓浓的程序员风格。</p>
 <p>首先下载这个主题：打开命令行，进入<strong>blog所在的目录</strong>，然后输入：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
