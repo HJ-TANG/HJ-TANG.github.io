@@ -1,25 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/04/28/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+    <title>Hexo和GitHub搭建个人博客记录</title>
+    <url>/2020/06/21/Hexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>心血来潮想搭建一个个人博客，但是又不想买域名买服务器，就在网上找了个简单的Hexo+GitHub的建站教程，没想到这么简单的教程我也能踩坑。下面大概记录一下安装流程以及安装过程中踩到的坑。</p>
+<a id="more"></a>
+
+<h1 id="安装基本流程"><a href="#安装基本流程" class="headerlink" title="安装基本流程"></a>安装基本流程</h1><p>安装主要是按照<a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">这个教程</a>进行的（忽略个人网站域名相关部分）。主要步骤就以下几个：</p>
+<ul>
+<li>GitHub创建个人仓库</li>
+<li>安装Git</li>
+<li>安装Node.js（强烈推荐使用nvm安装稳定版本）</li>
+<li>安装Hexo</li>
+<li>推送网站</li>
+</ul>
+<p>其中在安装node.js时，默认安装了当前的最新版本14.0.0（这是个大坑）。</p>
+<h1 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h1><h2 id="部署不上GitHub"><a href="#部署不上GitHub" class="headerlink" title="部署不上GitHub"></a>部署不上GitHub</h2><p>按上面的流程操作完之后，本地能预览，但是部署不到GitHub上去。看了下md文档是在的，但是渲染出来的html文件都是空的（那为什么本地博客显示正常？？？）。。</p>
+<p>网上搜索一番，首先尝试重启大法，即重新安装node.js和hexo等，没用。</p>
+<p>然后尝试了更改<code>_config.yml</code>里面的<code>deploy</code>下<code>repo</code>的格式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">repo: https://github.com/yourname/yourname.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">repo: git@github.com:yourname/yourname.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>也没有用。</p>
+<p>最后折腾了半天之后，终于在一个博客上看到可能是node.js的版本问题，这样又来到了第二个大坑。</p>
+<h2 id="nvm和node-js安装"><a href="#nvm和node-js安装" class="headerlink" title="nvm和node.js安装"></a>nvm和node.js安装</h2><p>由于使用的macOS，之前安装node.js是直接用brew安装的，默认安装的是最新版node。在某博客中看到最好不要使用brew安装node.js，而是采用nvm安装，使用nvm可以进行node.js的版本管理，可以随时切换node版本。nvm及node安装教程可以看<a href="https://www.jianshu.com/p/c1b6c452a98a" target="_blank" rel="noopener">这篇</a>，mac下更详细的教程可以看<a href="https://segmentfault.com/a/1190000017391932" target="_blank" rel="noopener">这里</a>和<a href="https://www.jianshu.com/p/622ad36ee020" target="_blank" rel="noopener">这里</a>，以及别人<a href="https://blog.csdn.net/zjuwwj/article/details/72805671" target="_blank" rel="noopener">踩过的坑</a>。</p>
+<p>我安装nvm也碰到了路径问题，就是明明已经安装了nvm，但是用的时候却显示<code>command not found</code>。参考前面的几个博客，以及一顿google又折腾了半天安装好了nvm，然后安装了<strong>官方推荐稳定版本</strong>v12.6.0，然后再安装hexo，部署GitHub，问题完美解决。</p>
+<p>总结一下，血的教训就是安装软件或者包啥的一定要安装<strong>官方稳定版</strong>！</p>
+]]></content>
+      <categories>
+        <category>博客相关</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo简单使用教程</title>
+    <url>/2020/06/21/Hexo%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>上一篇文章里用GitHub和Hexo搭建了一个粗糙的个人博客，这篇文章讲一下基本的使用和美化。如新建、删除博文，更换主题，添加标签分类等等。</p>
+<h1 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h1><p>在blog文件夹下新建终端窗口，输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new 文章标题</span><br></pre></td></tr></table></figure>
+
+<p>一篇空白的文章就新建好啦。文件是.md格式的，写文章的话需要学习一点markdown语法。</p>
+<p>文件的开头是这样的：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">title: 测试页面</span><br><span class="line">date: 2020-06-20 19:03:08</span><br><span class="line">tags:</span><br><span class="line"><span class="bullet">- </span>其他</span><br></pre></td></tr></table></figure>
+
+<p><code>title</code>是最终显示出来的文章标题，<code>date</code>是文章的创建时间，<code>tags</code>是文章的标签，在后面会详细说明。</p>
+<p>编辑好文章，本地查看用<code>hexo g</code>，如果没什么问题<code>hexo d</code>就可以部署到GitHub啦。</p>
 <a id="more"></a>
 
 
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<h1 id="删除文章"><a href="#删除文章" class="headerlink" title="删除文章"></a>删除文章</h1><p>首先进入到source / _post 文件夹中，找到要删除的文章对应的文件如helloworld.md文件，在本地直接执行删除。然后在blog文件夹中重新执行<code>hexo g</code>就好啦，然后<code>hexo d</code>部署到GitHub。</p>
+<h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>默认的主题不喜欢，可以在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">Themes</a>上找一个自己喜欢的主题。我使用的是<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>，浓浓的程序员风格。</p>
+<p>首先下载这个主题：打开命令行，进入<strong>blog所在的目录</strong>，然后输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>这是将Next主题下载到blog目录的themes主题下的next文件夹中。打开<strong>站点</strong>的_config.yml配置文件，修改主题为<code>next</code>（默认为<code>landscape</code>）：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>打开<strong>主题</strong>的_config.yml配置文件，在文件夹 themes / next 下面，不是站点配置文件，找到<code>Scheme Settings</code>，里面有四种样式，可以选择你喜欢的一种取消注释就行了。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Scheme Settings</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
+
+<h1 id="添加分类及标签"><a href="#添加分类及标签" class="headerlink" title="添加分类及标签"></a>添加分类及标签</h1><p>首先参考这篇文章<a href="https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a>，这样操作之后我们的文章已经有了分类和标签，但是要想分类和标签在左侧的菜单栏中像下图一样出现，需要在<strong>主题</strong>的配置文件_config.yml（themes / 主题名字）下面中找到<code>Menu Settings</code> ，把 <code>categories</code> 和 <code>tags</code> 取消注释。</p>
+<img src="menu.png" width="30%" height="30%">
+
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="阅读全文"><a href="#阅读全文" class="headerlink" title="阅读全文"></a>阅读全文</h1><p>默认情况下首页会显示最近发布的文章的全部内容，有点难看。如果不喜欢可以使用<strong>阅读全文</strong>功能，让首页只显示文章的一部分，折叠掉文章主体。</p>
+<p>添加方法极其简单，只要在文章里需要折叠的段落前加上<code>&lt;!-- more --&gt;</code> 就好啦！</p>
+<p>效果：</p>
+<img src="/images/image-20200620221512311.png" alt="image1" width="90%" height="90%" />]]></content>
+      <categories>
+        <category>博客相关</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
   </entry>
 </search>
