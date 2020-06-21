@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="心血来潮想搭建一个个人博客，但是又不想买域名买服务器，就在网上找了个简单的Hexo+GitHub的建站教程，没想到这么简单的教程我也能踩坑。下面大概记录一下安装流程以及安装过程中踩到的坑。">
+  <meta name="description" content="博客建好了当然要增加评论模块（万一有人想评论呢）。 Gitalk是基于 GitHub Issues 的评论系统。评论系统那么多，为什么用它呢？因为它简单方便呀，直接在GitHub里就可以申请应用许可～ 下面是具体步骤。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo和GitHub搭建个人博客记录">
-<meta property="og:url" content="http://yoursite.com/2020/06/21/Hexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="Hexo的Next主题下集成gitalk评论系统">
+<meta property="og:url" content="http://yoursite.com/2020/06/21/Hexo%E7%9A%84Next%E4%B8%BB%E9%A2%98%E4%B8%8B%E9%9B%86%E6%88%90gitalk%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Hongjing的技术博客">
-<meta property="og:description" content="心血来潮想搭建一个个人博客，但是又不想买域名买服务器，就在网上找了个简单的Hexo+GitHub的建站教程，没想到这么简单的教程我也能踩坑。下面大概记录一下安装流程以及安装过程中踩到的坑。">
+<meta property="og:description" content="博客建好了当然要增加评论模块（万一有人想评论呢）。 Gitalk是基于 GitHub Issues 的评论系统。评论系统那么多，为什么用它呢？因为它简单方便呀，直接在GitHub里就可以申请应用许可～ 下面是具体步骤。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-20T22:03:09.000Z">
-<meta property="article:modified_time" content="2020-06-20T22:46:40.613Z">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/Hexo%E7%9A%84Next%E4%B8%BB%E9%A2%98%E4%B8%8B%E9%9B%86%E6%88%90gitalk%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/app.png">
+<meta property="article:published_time" content="2020-06-21T00:49:27.000Z">
+<meta property="article:modified_time" content="2020-06-21T00:49:27.089Z">
 <meta property="article:author" content="HJ Tang">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/21/Hexo%E7%9A%84Next%E4%B8%BB%E9%A2%98%E4%B8%8B%E9%9B%86%E6%88%90gitalk%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/app.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/06/21/Hexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AE%B0%E5%BD%95/">
+<link rel="canonical" href="http://yoursite.com/2020/06/21/Hexo%E7%9A%84Next%E4%B8%BB%E9%A2%98%E4%B8%8B%E9%9B%86%E6%88%90gitalk%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>Hexo和GitHub搭建个人博客记录 | Hongjing的技术博客</title>
+  <title>Hexo的Next主题下集成gitalk评论系统 | Hongjing的技术博客</title>
   
 
 
@@ -161,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/21/Hexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/21/Hexo%E7%9A%84Next%E4%B8%BB%E9%A2%98%E4%B8%8B%E9%9B%86%E6%88%90gitalk%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo和GitHub搭建个人博客记录
+          Hexo的Next主题下集成gitalk评论系统
         </h1>
 
         <div class="post-meta">
@@ -183,9 +185,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-06-21 00:03:09 / 修改时间：00:46:40" itemprop="dateCreated datePublished" datetime="2020-06-21T00:03:09+02:00">2020-06-21</time>
+              <time title="创建时间：2020-06-21 02:49:27" itemprop="dateCreated datePublished" datetime="2020-06-21T02:49:27+02:00">2020-06-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,33 +216,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>心血来潮想搭建一个个人博客，但是又不想买域名买服务器，就在网上找了个简单的Hexo+GitHub的建站教程，没想到这么简单的教程我也能踩坑。下面大概记录一下安装流程以及安装过程中踩到的坑。</p>
+        <p>博客建好了当然要增加评论模块（万一有人想评论呢）。</p>
+<p><a href="https://gitalk.github.io/" target="_blank" rel="noopener">Gitalk</a>是基于 GitHub Issues 的评论系统。评论系统那么多，为什么用它呢？因为它简单方便呀，直接在GitHub里就可以申请应用许可～</p>
+<p>下面是具体步骤。</p>
 <a id="more"></a>
 
-<h1 id="安装基本流程"><a href="#安装基本流程" class="headerlink" title="安装基本流程"></a>安装基本流程</h1><p>安装主要是按照<a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">这个教程</a>进行的（忽略个人网站域名相关部分）。主要步骤就以下几个：</p>
-<ul>
-<li>GitHub创建个人仓库</li>
-<li>安装Git</li>
-<li>安装Node.js（强烈推荐使用nvm安装稳定版本）</li>
-<li>安装Hexo</li>
-<li>推送网站</li>
-</ul>
-<p>其中在安装node.js时，默认安装了当前的最新版本14.0.0（这是个大坑）。</p>
-<h1 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h1><h2 id="部署不上GitHub"><a href="#部署不上GitHub" class="headerlink" title="部署不上GitHub"></a>部署不上GitHub</h2><p>按上面的流程操作完之后，本地能预览，但是部署不到GitHub上去。看了下md文档是在的，但是渲染出来的html文件都是空的（那为什么本地博客显示正常？？？）。。</p>
-<p>网上搜索一番，首先尝试重启大法，即重新安装node.js和hexo等，没用。</p>
-<p>然后尝试了更改<code>_config.yml</code>里面的<code>deploy</code>下<code>repo</code>的格式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo: https://github.com/yourname/yourname.github.io.git</span><br></pre></td></tr></table></figure>
 
-<p>or</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo: git@github.com:yourname/yourname.github.io.git</span><br></pre></td></tr></table></figure>
 
-<p>也没有用。</p>
-<p>最后折腾了半天之后，终于在一个博客上看到可能是node.js的版本问题，这样又来到了第二个大坑。</p>
-<h2 id="nvm和node-js安装"><a href="#nvm和node-js安装" class="headerlink" title="nvm和node.js安装"></a>nvm和node.js安装</h2><p>由于使用的macOS，之前安装node.js是直接用brew安装的，默认安装的是最新版node。在某博客中看到最好不要使用brew安装node.js，而是采用nvm安装，使用nvm可以进行node.js的版本管理，可以随时切换node版本。nvm及node安装教程可以看<a href="https://www.jianshu.com/p/c1b6c452a98a" target="_blank" rel="noopener">这篇</a>，mac下更详细的教程可以看<a href="https://segmentfault.com/a/1190000017391932" target="_blank" rel="noopener">这里</a>和<a href="https://www.jianshu.com/p/622ad36ee020" target="_blank" rel="noopener">这里</a>，以及别人<a href="https://blog.csdn.net/zjuwwj/article/details/72805671" target="_blank" rel="noopener">踩过的坑</a>。还有一篇<a href="http://linyehui.me/2016/03/03/reinstall-nodejs-on-osx/" target="_blank" rel="noopener">Mac OSX下重装node.js</a>供参考。</p>
-<p>我安装nvm也碰到了路径问题，就是明明已经安装了nvm，但是用的时候却显示<code>command not found</code>。参考前面的几个博客，以及一顿google又折腾了半天安装好了nvm，然后安装了<strong>官方推荐稳定版本</strong>v12.6.0，然后再安装hexo，部署GitHub，问题完美解决。</p>
-<p>但是重启终端后又说找不到nvm了！于是又有了<a href="https://blog.csdn.net/mrhaoxiaojun/article/details/79312101" target="_blank" rel="noopener">nvm 重启终端失效的解决方法</a>。</p>
-<p>总结一下，血的教训就是安装软件或者包啥的一定要安装<strong>官方稳定版</strong>！</p>
-<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><p>还有很多别的常踩的坑可以参考<a href="https://xuanwo.io/2014/08/14/hexo-usual-problem/" target="_blank" rel="noopener">Hexo常见问题解决方案</a>。</p>
+<h1 id="注册-OAuth-Application"><a href="#注册-OAuth-Application" class="headerlink" title="注册 OAuth Application"></a>注册 OAuth Application</h1><p><a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">点击此处</a> 来注册一个新的 OAuth Application。或者点击GitHub右上角个人头像 -&gt; Settings -&gt; 左侧最下的Developer Settings -&gt; OAuth Apps -&gt; New OAuth App。Application name可以随便填，Homepage URL和callback URL最好都填你的博客域名，如我的填的就是<code>https://hj-tang.github.io</code>。<strong>注意！域名后面不要有斜杠 / ！！</strong></p>
+<img src="app.png" width="60%" height="60%">
+
+<p>点击注册后，会得到<code>Client ID</code>和<code>Client Secret</code>，这个在后面的配置中会用到。</p>
+<h1 id="配置Gitalk"><a href="#配置Gitalk" class="headerlink" title="配置Gitalk"></a>配置Gitalk</h1><p>修改next主题下的配置文件<code>next/_config.yml</code>，找到以下部分并按照下面所示修改：</p>
+<p>第一部分：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Comments Settings</span></span><br><span class="line"><span class="comment"># See: https://theme-next.org/docs/third-party-services/comments</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Multiple Comment System Support</span></span><br><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="comment"># Available values: tabs | buttons</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">tabs</span></span><br><span class="line">  <span class="comment"># Choose a comment system to be displayed by default.</span></span><br><span class="line">  <span class="comment"># Available values: changyan | disqus | disqusjs | gitalk | livere | valine</span></span><br><span class="line">  <span class="attr">active:</span> <span class="string">gitalk</span></span><br><span class="line">  <span class="comment"># Setting `true` means remembering the comment system selected by the visitor.</span></span><br><span class="line">  <span class="attr">storage:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Lazyload all comment systems.</span></span><br><span class="line">  <span class="attr">lazyload:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>第二部分：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gitalk:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">githubID:</span> <span class="string">github帐号</span>  <span class="comment"># 例如：hj-tang 注意是ID不是name  </span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">用于存放评论的仓库名称</span>  <span class="comment"># 例如：store_comments 或者直接填写博客所在的repo如 hj-tang.github.io</span></span><br><span class="line">  <span class="attr">ClientID:</span> <span class="string">Client</span> <span class="string">ID</span> <span class="comment"># 前面注册OAuth App时生成的</span></span><br><span class="line">  <span class="attr">ClientSecret:</span> <span class="string">Client</span> <span class="string">Secret</span> <span class="comment"># 前面注册OAuth App时生成的</span></span><br><span class="line">  <span class="attr">adminUser:</span> <span class="string">github帐号</span> <span class="comment">#指定可初始化评论账户 例如：hj-tang</span></span><br><span class="line">  <span class="attr">distractionFreeMode:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="可能存在的问题"><a href="#可能存在的问题" class="headerlink" title="可能存在的问题"></a>可能存在的问题</h1><h2 id="Related-Issues-Not-Found-问题"><a href="#Related-Issues-Not-Found-问题" class="headerlink" title="Related Issues Not Found 问题"></a>Related Issues Not Found 问题</h2><p>完成上一步之后我们预览博客会发现文章下面有评论区，但是可能会报如下错 </p>
+<blockquote>
+<p>Related Issues not found. Please contact @XXXX to initialize the comment.</p>
+</blockquote>
+<p>不过没关系，只要我们点击 “Login with Github” 登陆一次就行了。可能每个页面都需要登陆一次。</p>
+<h2 id="其他可能问题"><a href="#其他可能问题" class="headerlink" title="其他可能问题"></a>其他可能问题</h2><p>可以参考 <a href="https://liujunzhou.top/2018/8/10/gitalk-error/" target="_blank" rel="noopener">Junzhou Liu的博客</a>。</p>
 
     </div>
 
@@ -259,11 +261,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/06/21/Hexo%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="next" title="Hexo简单使用教程">
-      Hexo简单使用教程 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/06/21/Hexo%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="prev" title="Hexo简单使用教程">
+      <i class="fa fa-chevron-left"></i> Hexo简单使用教程
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -323,7 +325,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装基本流程"><span class="nav-number">1.</span> <span class="nav-text">安装基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#踩坑"><span class="nav-number">2.</span> <span class="nav-text">踩坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署不上GitHub"><span class="nav-number">2.1.</span> <span class="nav-text">部署不上GitHub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nvm和node-js安装"><span class="nav-number">2.2.</span> <span class="nav-text">nvm和node.js安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题"><span class="nav-number">2.3.</span> <span class="nav-text">其他问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注册-OAuth-Application"><span class="nav-number">1.</span> <span class="nav-text">注册 OAuth Application</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置Gitalk"><span class="nav-number">2.</span> <span class="nav-text">配置Gitalk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可能存在的问题"><span class="nav-number">3.</span> <span class="nav-text">可能存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Issues-Not-Found-问题"><span class="nav-number">3.1.</span> <span class="nav-text">Related Issues Not Found 问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他可能问题"><span class="nav-number">3.2.</span> <span class="nav-text">其他可能问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -468,7 +470,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'hj-tang.github.io',
       owner       : 'HJ-TANG',
       admin       : ['HJ-TANG'],
-      id          : 'd2f0b263b93ed0103395d5be1fbb06f3',
+      id          : 'ed0291b373dfa7ff7856f5145686ef81',
         language: '',
       distractionFreeMode: true
     });
