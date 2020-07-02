@@ -87,7 +87,12 @@
 <h1 id="阅读全文"><a href="#阅读全文" class="headerlink" title="阅读全文"></a>阅读全文</h1><p>默认情况下首页会显示最近发布的文章的全部内容，有点难看。如果不喜欢可以使用<strong>阅读全文</strong>功能，让首页只显示文章的一部分，折叠掉文章主体。</p>
 <p>添加方法极其简单，只要在文章里需要折叠的段落前加上<code>&lt;!-- more --&gt;</code> 就好啦！</p>
 <p>效果：</p>
-<img src="/images/image-20200620221512311.png" alt="image1" width="90%" height="90%" />]]></content>
+<img src="/images/image-20200620221512311.png" alt="image1" width="90%" height="90%" />
+
+
+
+<h1 id="其他主题配置"><a href="#其他主题配置" class="headerlink" title="其他主题配置"></a>其他主题配置</h1><p>可以查看<a href="https://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">官方文档</a>。</p>
+]]></content>
       <categories>
         <category>博客相关</category>
       </categories>
@@ -116,7 +121,7 @@
 
 
 <p>第二部分：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">gitalk:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">githubID:</span> <span class="string">github帐号</span>  <span class="comment"># 例如：hj-tang 注意是ID不是name  </span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">用于存放评论的仓库名称</span>  <span class="comment"># 例如：store_comments 或者直接填写博客所在的repo如 hj-tang.github.io</span></span><br><span class="line">  <span class="attr">ClientID:</span> <span class="string">Client</span> <span class="string">ID</span> <span class="comment"># 前面注册OAuth App时生成的</span></span><br><span class="line">  <span class="attr">ClientSecret:</span> <span class="string">Client</span> <span class="string">Secret</span> <span class="comment"># 前面注册OAuth App时生成的</span></span><br><span class="line">  <span class="attr">adminUser:</span> <span class="string">github帐号</span> <span class="comment">#指定可初始化评论账户 例如：hj-tang</span></span><br><span class="line">  <span class="attr">distractionFreeMode:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">gitalk:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">githubID:</span> <span class="string">github帐号</span>  <span class="comment"># 例如：hj-tang 注意是ID不是name  </span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">用于存放评论的仓库名称</span>  <span class="comment"># 可以填写博客所在的repo如hj-tang.github.io，或者建一个新的用于存放评论如store_comments </span></span><br><span class="line">  <span class="attr">ClientID:</span> <span class="string">Client</span> <span class="string">ID</span> <span class="comment"># 前面注册OAuth App时生成的</span></span><br><span class="line">  <span class="attr">ClientSecret:</span> <span class="string">Client</span> <span class="string">Secret</span> <span class="comment"># 前面注册OAuth App时生成的</span></span><br><span class="line">  <span class="attr">adminUser:</span> <span class="string">github帐号</span> <span class="comment">#指定可初始化评论账户 例如：hj-tang</span></span><br><span class="line">  <span class="attr">distractionFreeMode:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -124,7 +129,12 @@
 <blockquote>
 <p>Related Issues not found. Please contact @XXXX to initialize the comment.</p>
 </blockquote>
-<p>不过没关系，只要我们点击 “Login with Github” 登陆一次就行了。可能每个页面都需要登陆一次。</p>
+<p>不过没关系，只要我们点击 “Login with Github” 登陆一次就行了。检查下其他文章，有可能每个页面都需要登陆一次。</p>
+<h2 id="某些页面不希望有评论区"><a href="#某些页面不希望有评论区" class="headerlink" title="某些页面不希望有评论区"></a>某些页面不希望有评论区</h2><p>点击分类或标签进入到相应页面时，会发现也有评论区，这是我们不想看到的。<a href="https://hj-tang.github.io/2020/06/21/Hexo%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/#more" target="_blank" rel="noopener">这篇文章</a>里的第4部分介绍了如何添加标签及分类。只要在相应的页面如tags的index.md页面添加<code>comments: false</code>就行了。如下所示：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2020-06-20 18:57:36</span><br><span class="line">type: "tags"</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="其他可能问题"><a href="#其他可能问题" class="headerlink" title="其他可能问题"></a>其他可能问题</h2><p>可以参考 <a href="https://liujunzhou.top/2018/8/10/gitalk-error/" target="_blank" rel="noopener">Junzhou Liu的博客</a>。</p>
 ]]></content>
       <categories>
@@ -132,6 +142,93 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux之tmux快速入门</title>
+    <url>/2020/07/03/Linux%E4%B9%8Btmux%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>Tmux 可以让你在一个屏幕中管理多个终端窗口。比如像下面这样，左边写代码，右边查看某程序运行情况。接下来就讲讲tmux快速入门指南。</p>
+<img src="https://s1.ax1x.com/2020/07/03/NLLX4O.png" alt="NLLX4O.png" width="70%" height="70%" />
+
+<a id="more"></a>
+
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>tmux中有3种概念，会话，窗口(window)，窗格(pane)。一个会话可以包含多个窗口，一个窗口可以被分割成多个窗格(pane)。会话有点像是tmux的服务，在后端运行，我们可以通过tmux命令创建这种服务，并且可以通过tmux命令查看，附加到后端运行的会话中。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/330-799c58a003588e02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/693" alt="tmux架构"></p>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>tmux 是被设计为 cs 结构的。因此当你启动 tmux 的时候, 实际上你启动的是 tmux 的 client。<br>服务端可能也在你的电脑上或者其他服务器上，总之要连接 client 和 server， 就需要一个 session。一般来说一个 session 对应一个 project。</p>
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p>一个 session 包含多个 window，这里的 window 比较类似一般 terminal 模拟器的 tab。</p>
+<h2 id="pane"><a href="#pane" class="headerlink" title="pane"></a>pane</h2><p>一个 window 可以被分割为多个 pane，方便同时查看多个进程的状态。</p>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="会话操作"><a href="#会话操作" class="headerlink" title="会话操作"></a>会话操作</h2><ol>
+<li><p>新建会话</p>
+<p><code>tmux new -s [会话名]</code> </p>
+<p>新建一个会话(session)后，在会话中会生成一个默认窗口(window)，默认窗口中有一个默认窗格(pane)铺满整个窗口区域。</p>
+</li>
+<li><p>退出会话</p>
+<p><code>ctrl+b d</code> （ 即先同时按下ctrl和b，松开再按d）</p>
+</li>
+<li><p>查看会话列表</p>
+<p><code>tmux ls</code></p>
+<p>如果是在某个会话环境中想查看会话列表，可以用以下指令来获得，然后用键盘选择就可进入</p>
+<p><code>ctrl+b s</code></p>
+</li>
+<li><p>进入会话</p>
+<p><code>tmux a -t [会话名]</code></p>
+</li>
+<li><p>销毁会话</p>
+<p><code>tmux kill-session -t [会话名]</code></p>
+</li>
+<li><p>重命名会话</p>
+<p><code>tmux rename -t [旧会话名] [新会话名]</code></p>
+</li>
+</ol>
+<h2 id="窗口操作"><a href="#窗口操作" class="headerlink" title="窗口操作"></a>窗口操作</h2><p>一个tmux的会话中可以有多个窗口(window)，每个窗口又可以分割成多个pane(窗格)。我们工作的最小单位其实是窗格。默认情况下在一个window中，只有一个大窗格，占满整个窗口区域。我们在这个区域工作。</p>
+<ol>
+<li><p>新建窗口</p>
+<p><code>ctrl+b c</code></p>
+<p>默认情况下创建出来的窗口由窗口序号+窗口名字组成，可以看到新创建的窗口后面有*号，表示是当前窗口。</p>
+</li>
+<li><p>切换窗口</p>
+<p>在同一个会话的多个窗口之间可以通过如下快捷键进行切换：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ctrl+b p (previous的首字母) 切换到上一个window。</span><br><span class="line">ctrl+b n (next的首字母) 切换到下一个window。</span><br><span class="line">ctrl+b 0 切换到0号window，依次类推，可换成任意窗口序号</span><br><span class="line">ctrl+b w (windows的首字母) 列出当前session所有window，通过上、下键切换窗口</span><br><span class="line">ctrl+b l (字母L的小写)相邻的window切换</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>关闭窗口</p>
+<p><code>ctrl+b &amp;</code></p>
+</li>
+</ol>
+<h2 id="窗格操作"><a href="#窗格操作" class="headerlink" title="窗格操作"></a>窗格操作</h2><p>tmux的一个窗口可以被分成多个pane(窗格)，可以做出分屏的效果。</p>
+<ol>
+<li><p>垂直分屏</p>
+<p><code>ctrl+b %</code></p>
+</li>
+<li><p>水平分屏</p>
+<p><code>ctrl+b &quot;</code></p>
+</li>
+<li><p>切换窗格</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ctrl+b o 依次切换当前窗口下的各个pane。</span><br><span class="line">ctrl+b Up|Down|Left|Right 根据按箭方向选择切换到某个pane。</span><br><span class="line">ctrl+b Space (空格键) 对当前窗口下的所有pane重新排列布局，每按一次，换一种样式。</span><br><span class="line">ctrl+b z 最大化当前pane。再按一次后恢复。</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>关闭窗格</p>
+<p><code>ctrl+b x</code> 关闭当前使用中的pane，操作之后会给出是否关闭的提示，按y确认即关闭。</p>
+</li>
+</ol>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>tmux的配置文件是<code>~/.tmux.conf</code>，这个文件可能不存在，可以自己新建。配置文件可以用来更改默认的操作方式，设置为你喜欢的键位。</p>
+<p>示例文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> -g prefix C-x <span class="comment"># prefix C-x</span></span><br><span class="line">unbind C-b <span class="comment"># C-b即Ctrl-b键，unbind意味着解除绑定</span></span><br><span class="line"><span class="built_in">bind</span> C-x send-prefix <span class="comment"># 绑定Ctrl+x为新的指令前缀</span></span><br><span class="line"><span class="comment"># 从tmux v1.6版起，支持设置第二个指令前缀</span></span><br><span class="line"><span class="built_in">set</span>-option -g prefix2 ` <span class="comment"># 设置一个不常用的`键作为指令前缀，按键更快</span></span><br><span class="line"><span class="comment"># 绑定快捷键r</span></span><br><span class="line"><span class="built_in">bind</span> r <span class="built_in">source</span>-file ~/.tmux.conf \; display-message <span class="string">"Config reloaded"</span></span><br><span class="line">unbind <span class="string">'"'</span></span><br><span class="line"><span class="built_in">bind</span> - splitw -v <span class="comment"># 垂直方向新增面板，默认进入当前目录</span></span><br><span class="line">unbind <span class="string">'%'</span></span><br><span class="line"><span class="built_in">bind</span> | splitw -h <span class="comment"># 水平方向新增面板，默认进入当前目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r k select-pane -U <span class="comment"># 绑定prefix+k为↑</span></span><br><span class="line"><span class="built_in">bind</span> -r j select-pane -D <span class="comment"># 绑定j为↓</span></span><br><span class="line"><span class="built_in">bind</span> -r h select-pane -L <span class="comment"># 绑定h为←</span></span><br><span class="line"><span class="built_in">bind</span> -r l select-pane -R <span class="comment"># 绑定l为→</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r e lastp <span class="comment"># 选择最后一个面板</span></span><br><span class="line"><span class="built_in">bind</span> -r ^e last <span class="comment"># 选择最后一个窗口</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r ^u swapp -U <span class="comment"># 与前一个面板交换位置</span></span><br><span class="line"><span class="built_in">bind</span> -r ^d swapp -D <span class="comment"># 与后一个面板交换位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绑定prefix Ctrl+hjkl键为面板上下左右调整边缘的快捷指令</span></span><br><span class="line"><span class="built_in">bind</span> -r ^k resizep -U 10 <span class="comment"># 绑定Ctrl+k为往↑调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^j resizep -D 10 <span class="comment"># 绑定Ctrl+j为往↓调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^h resizep -L 10 <span class="comment"># 绑定Ctrl+h为往←调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^l resizep -R 10 <span class="comment"># 绑定Ctrl+l为往→调整面板边缘10个单元格</span></span><br><span class="line"></span><br><span class="line">setw -g mode-keys vi <span class="comment"># vi风格选择文本</span></span><br><span class="line"><span class="comment"># bind escape copy-mode  # 绑定esc为进入复制模式</span></span><br><span class="line"><span class="built_in">bind</span> -t vi-copy v begin-selection <span class="comment"># 绑定v键为开始选择文本</span></span><br><span class="line"><span class="built_in">bind</span> -t vi-copy y copy-selection <span class="comment"># 绑定y键为复制选中文本</span></span><br><span class="line"><span class="built_in">bind</span> p pasteb <span class="comment"># 绑定p键为粘贴文本（p键默认用于进入上一个窗口，不建议覆盖）</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上是tmux的快速入门，即最常用到的tmux功能及快捷方式，更全的指令以及更详细的介绍可以参考<a href="https://www.cnblogs.com/lizhang4/p/7325086.html" target="_blank" rel="noopener">tmux常用命令</a>和<a href="https://www.cnblogs.com/wangqiguo/p/8905081.html" target="_blank" rel="noopener">tmux终端复用详解</a>。</p>
+<p>参考：<a href="https://blog.csdn.net/zong596568821xp/article/details/83785387" target="_blank" rel="noopener">https://blog.csdn.net/zong596568821xp/article/details/83785387</a> </p>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
 </search>

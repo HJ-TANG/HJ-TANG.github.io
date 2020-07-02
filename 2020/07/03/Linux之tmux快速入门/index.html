@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Tmux 可以让你在一个屏幕中管理多个终端窗口。比如像下面这样，左边写代码，右边查看某程序运行情况。接下来就讲讲tmux快速入门指南。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux之tmux快速入门">
+<meta property="og:url" content="http://yoursite.com/2020/07/03/Linux%E4%B9%8Btmux%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Hongjing的技术博客">
+<meta property="og:description" content="Tmux 可以让你在一个屏幕中管理多个终端窗口。比如像下面这样，左边写代码，右边查看某程序运行情况。接下来就讲讲tmux快速入门指南。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/03/NLLX4O.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/330-799c58a003588e02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/693">
+<meta property="article:published_time" content="2020-07-02T22:53:29.000Z">
+<meta property="article:modified_time" content="2020-07-02T22:53:29.612Z">
+<meta property="article:author" content="HJ Tang">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/03/NLLX4O.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/03/Linux%E4%B9%8Btmux%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux之tmux快速入门 | Hongjing的技术博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hongjing的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/03/Linux%E4%B9%8Btmux%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HJ Tang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hongjing的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux之tmux快速入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-03 00:53:29" itemprop="dateCreated datePublished" datetime="2020-07-03T00:53:29+02:00">2020-07-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Tmux 可以让你在一个屏幕中管理多个终端窗口。比如像下面这样，左边写代码，右边查看某程序运行情况。接下来就讲讲tmux快速入门指南。</p>
+<img src="https://s1.ax1x.com/2020/07/03/NLLX4O.png" alt="NLLX4O.png" width="70%" height="70%" />
+
+<a id="more"></a>
+
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>tmux中有3种概念，会话，窗口(window)，窗格(pane)。一个会话可以包含多个窗口，一个窗口可以被分割成多个窗格(pane)。会话有点像是tmux的服务，在后端运行，我们可以通过tmux命令创建这种服务，并且可以通过tmux命令查看，附加到后端运行的会话中。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/330-799c58a003588e02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/693" alt="tmux架构"></p>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>tmux 是被设计为 cs 结构的。因此当你启动 tmux 的时候, 实际上你启动的是 tmux 的 client。<br>服务端可能也在你的电脑上或者其他服务器上，总之要连接 client 和 server， 就需要一个 session。一般来说一个 session 对应一个 project。</p>
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p>一个 session 包含多个 window，这里的 window 比较类似一般 terminal 模拟器的 tab。</p>
+<h2 id="pane"><a href="#pane" class="headerlink" title="pane"></a>pane</h2><p>一个 window 可以被分割为多个 pane，方便同时查看多个进程的状态。</p>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="会话操作"><a href="#会话操作" class="headerlink" title="会话操作"></a>会话操作</h2><ol>
+<li><p>新建会话</p>
+<p><code>tmux new -s [会话名]</code> </p>
+<p>新建一个会话(session)后，在会话中会生成一个默认窗口(window)，默认窗口中有一个默认窗格(pane)铺满整个窗口区域。</p>
+</li>
+<li><p>退出会话</p>
+<p><code>ctrl+b d</code> （ 即先同时按下ctrl和b，松开再按d）</p>
+</li>
+<li><p>查看会话列表</p>
+<p><code>tmux ls</code></p>
+<p>如果是在某个会话环境中想查看会话列表，可以用以下指令来获得，然后用键盘选择就可进入</p>
+<p><code>ctrl+b s</code></p>
+</li>
+<li><p>进入会话</p>
+<p><code>tmux a -t [会话名]</code></p>
+</li>
+<li><p>销毁会话</p>
+<p><code>tmux kill-session -t [会话名]</code></p>
+</li>
+<li><p>重命名会话</p>
+<p><code>tmux rename -t [旧会话名] [新会话名]</code></p>
+</li>
+</ol>
+<h2 id="窗口操作"><a href="#窗口操作" class="headerlink" title="窗口操作"></a>窗口操作</h2><p>一个tmux的会话中可以有多个窗口(window)，每个窗口又可以分割成多个pane(窗格)。我们工作的最小单位其实是窗格。默认情况下在一个window中，只有一个大窗格，占满整个窗口区域。我们在这个区域工作。</p>
+<ol>
+<li><p>新建窗口</p>
+<p><code>ctrl+b c</code></p>
+<p>默认情况下创建出来的窗口由窗口序号+窗口名字组成，可以看到新创建的窗口后面有*号，表示是当前窗口。</p>
+</li>
+<li><p>切换窗口</p>
+<p>在同一个会话的多个窗口之间可以通过如下快捷键进行切换：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrl+b p (previous的首字母) 切换到上一个window。</span><br><span class="line">ctrl+b n (next的首字母) 切换到下一个window。</span><br><span class="line">ctrl+b 0 切换到0号window，依次类推，可换成任意窗口序号</span><br><span class="line">ctrl+b w (windows的首字母) 列出当前session所有window，通过上、下键切换窗口</span><br><span class="line">ctrl+b l (字母L的小写)相邻的window切换</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>关闭窗口</p>
+<p><code>ctrl+b &amp;</code></p>
+</li>
+</ol>
+<h2 id="窗格操作"><a href="#窗格操作" class="headerlink" title="窗格操作"></a>窗格操作</h2><p>tmux的一个窗口可以被分成多个pane(窗格)，可以做出分屏的效果。</p>
+<ol>
+<li><p>垂直分屏</p>
+<p><code>ctrl+b %</code></p>
+</li>
+<li><p>水平分屏</p>
+<p><code>ctrl+b &quot;</code></p>
+</li>
+<li><p>切换窗格</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrl+b o 依次切换当前窗口下的各个pane。</span><br><span class="line">ctrl+b Up|Down|Left|Right 根据按箭方向选择切换到某个pane。</span><br><span class="line">ctrl+b Space (空格键) 对当前窗口下的所有pane重新排列布局，每按一次，换一种样式。</span><br><span class="line">ctrl+b z 最大化当前pane。再按一次后恢复。</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>关闭窗格</p>
+<p><code>ctrl+b x</code> 关闭当前使用中的pane，操作之后会给出是否关闭的提示，按y确认即关闭。</p>
+</li>
+</ol>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>tmux的配置文件是<code>~/.tmux.conf</code>，这个文件可能不存在，可以自己新建。配置文件可以用来更改默认的操作方式，设置为你喜欢的键位。</p>
+<p>示例文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g prefix C-x <span class="comment"># prefix C-x</span></span><br><span class="line">unbind C-b <span class="comment"># C-b即Ctrl-b键，unbind意味着解除绑定</span></span><br><span class="line"><span class="built_in">bind</span> C-x send-prefix <span class="comment"># 绑定Ctrl+x为新的指令前缀</span></span><br><span class="line"><span class="comment"># 从tmux v1.6版起，支持设置第二个指令前缀</span></span><br><span class="line"><span class="built_in">set</span>-option -g prefix2 ` <span class="comment"># 设置一个不常用的`键作为指令前缀，按键更快</span></span><br><span class="line"><span class="comment"># 绑定快捷键r</span></span><br><span class="line"><span class="built_in">bind</span> r <span class="built_in">source</span>-file ~/.tmux.conf \; display-message <span class="string">"Config reloaded"</span></span><br><span class="line">unbind <span class="string">'"'</span></span><br><span class="line"><span class="built_in">bind</span> - splitw -v <span class="comment"># 垂直方向新增面板，默认进入当前目录</span></span><br><span class="line">unbind <span class="string">'%'</span></span><br><span class="line"><span class="built_in">bind</span> | splitw -h <span class="comment"># 水平方向新增面板，默认进入当前目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r k select-pane -U <span class="comment"># 绑定prefix+k为↑</span></span><br><span class="line"><span class="built_in">bind</span> -r j select-pane -D <span class="comment"># 绑定j为↓</span></span><br><span class="line"><span class="built_in">bind</span> -r h select-pane -L <span class="comment"># 绑定h为←</span></span><br><span class="line"><span class="built_in">bind</span> -r l select-pane -R <span class="comment"># 绑定l为→</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r e lastp <span class="comment"># 选择最后一个面板</span></span><br><span class="line"><span class="built_in">bind</span> -r ^e last <span class="comment"># 选择最后一个窗口</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r ^u swapp -U <span class="comment"># 与前一个面板交换位置</span></span><br><span class="line"><span class="built_in">bind</span> -r ^d swapp -D <span class="comment"># 与后一个面板交换位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绑定prefix Ctrl+hjkl键为面板上下左右调整边缘的快捷指令</span></span><br><span class="line"><span class="built_in">bind</span> -r ^k resizep -U 10 <span class="comment"># 绑定Ctrl+k为往↑调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^j resizep -D 10 <span class="comment"># 绑定Ctrl+j为往↓调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^h resizep -L 10 <span class="comment"># 绑定Ctrl+h为往←调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^l resizep -R 10 <span class="comment"># 绑定Ctrl+l为往→调整面板边缘10个单元格</span></span><br><span class="line"></span><br><span class="line">setw -g mode-keys vi <span class="comment"># vi风格选择文本</span></span><br><span class="line"><span class="comment"># bind escape copy-mode  # 绑定esc为进入复制模式</span></span><br><span class="line"><span class="built_in">bind</span> -t vi-copy v begin-selection <span class="comment"># 绑定v键为开始选择文本</span></span><br><span class="line"><span class="built_in">bind</span> -t vi-copy y copy-selection <span class="comment"># 绑定y键为复制选中文本</span></span><br><span class="line"><span class="built_in">bind</span> p pasteb <span class="comment"># 绑定p键为粘贴文本（p键默认用于进入上一个窗口，不建议覆盖）</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上是tmux的快速入门，即最常用到的tmux功能及快捷方式，更全的指令以及更详细的介绍可以参考<a href="https://www.cnblogs.com/lizhang4/p/7325086.html" target="_blank" rel="noopener">tmux常用命令</a>和<a href="https://www.cnblogs.com/wangqiguo/p/8905081.html" target="_blank" rel="noopener">tmux终端复用详解</a>。</p>
+<p>参考：<a href="https://blog.csdn.net/zong596568821xp/article/details/83785387" target="_blank" rel="noopener">https://blog.csdn.net/zong596568821xp/article/details/83785387</a> </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/21/Hexo%E7%9A%84Next%E4%B8%BB%E9%A2%98%E4%B8%8B%E9%9B%86%E6%88%90gitalk%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="prev" title="Hexo的Next主题下集成gitalk评论系统">
+      <i class="fa fa-chevron-left"></i> Hexo的Next主题下集成gitalk评论系统
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number">1.1.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window"><span class="nav-number">1.2.</span> <span class="nav-text">window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pane"><span class="nav-number">1.3.</span> <span class="nav-text">pane</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本操作"><span class="nav-number">2.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#会话操作"><span class="nav-number">2.1.</span> <span class="nav-text">会话操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口操作"><span class="nav-number">2.2.</span> <span class="nav-text">窗口操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#窗格操作"><span class="nav-number">2.3.</span> <span class="nav-text">窗格操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件"><span class="nav-number">3.</span> <span class="nav-text">配置文件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">HJ Tang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HJ Tang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '9f4fa2d3ccd172992a3b',
+      clientSecret: '958c0008e3a18b76f704ef345b596685b2aa14b0',
+      repo        : 'hj-tang.github.io',
+      owner       : 'HJ-TANG',
+      admin       : ['HJ-TANG'],
+      id          : '0d94fca5a3ecd3c5b76220692c4af653',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
